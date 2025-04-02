@@ -674,30 +674,34 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-      
+
       local powershell_es = {}
 
-      if  vim.loop.os_uname().sysname == "Windows_NT" then 
+      if vim.loop.os_uname().sysname == 'Windows_NT' then
         powershell_es = {
-          bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
-          cmd = { 
-            "pwsh", 
-            "-NoLogo", 
-            "-NoProfile", 
-            "-Command", 
-            vim.fn.stdpath("data") .. '/mason/packages/powershell-editor-services/PowerShellEditorServices/Start-EditorServices.ps1' .. 
-            " -HostName 'nvim' -HostProfileId 0 -HostVersion '1.0.0' -LogPath \"" .. 
-            vim.fn.stdpath("cache") .. "/powershell_es.log" .. 
-            "\" -SessionDetailsPath \"" .. 
-            vim.fn.stdpath("cache") .. "/powershell_es.session.json" .. 
-            "\" -BundledModulesPath \"" .. 
-            vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services" .. 
-            "\" -EnableConsoleRepl -LanguageServiceOnly -Stdio"
+          bundle_path = vim.fn.stdpath 'data' .. '/mason/packages/powershell-editor-services',
+          cmd = {
+            'pwsh',
+            '-NoLogo',
+            '-NoProfile',
+            '-Command',
+            vim.fn.stdpath 'data'
+              .. '/mason/packages/powershell-editor-services/PowerShellEditorServices/Start-EditorServices.ps1'
+              .. " -HostName 'nvim' -HostProfileId 0 -HostVersion '1.0.0' -LogPath \""
+              .. vim.fn.stdpath 'cache'
+              .. '/powershell_es.log'
+              .. '" -SessionDetailsPath "'
+              .. vim.fn.stdpath 'cache'
+              .. '/powershell_es.session.json'
+              .. '" -BundledModulesPath "'
+              .. vim.fn.stdpath 'data'
+              .. '/mason/packages/powershell-editor-services'
+              .. '" -EnableConsoleRepl -LanguageServiceOnly -Stdio',
           },
-          filetypes = { "ps1", "psm1", "psd1" },
+          filetypes = { 'ps1', 'psm1', 'psd1' },
         }
       end
-      
+
       local servers = {
         -- clangd = {},
         -- gopls = {},
@@ -705,6 +709,10 @@ require('lazy').setup({
         rust_analyzer = {
           settings = {
             ['rust-analyzer'] = {
+              checkOnSave = {
+                command = 'clippy',
+                extraArgs = {'--', '-D', 'warnings', '-W', 'clippy::single_match', '-W', 'clippy::single_match_else', '-W', 'clippy::needless_match', '-W', 'clippy::needless_late_init', '-W', 'clippy::redundant_pattern_matching', '-W', 'clippy::redundant_pattern', '-W', 'clippy::redundant_guards', '-W', 'clippy::collapsible_match', '-W', 'clippy::match_single_binding', '-W', 'clippy::match_same_arms', '-W', 'clippy::match_ref_pats', '-W', 'clippy::match_bool', '-D', 'clippy::needless_bool', '-W', 'clippy::unwrap_used', '-W', 'clippy::expect_used' },
+              },
               diagnostics = {
                 enable = false,
               },
