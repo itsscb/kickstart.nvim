@@ -3,7 +3,7 @@
 vim.keymap.set({ 'i', 'v' }, 'jk', '<Esc>', { noremap = true, silent = true })
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
-vim.keymap.set("x", "<leader>p", [["_dP]], { desc = 'Paste and cut' })
+vim.keymap.set('x', '<leader>p', [["_dP]], { desc = 'Paste and cut' })
 
 --[[
 
@@ -297,7 +297,7 @@ require('lazy').setup({
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
 
-  {                     -- Useful plugin to show you pending keybinds.
+  { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -343,7 +343,7 @@ require('lazy').setup({
 
       -- Document existing key chains
       spec = {
-        { '<leader>c', group = '[C]ode',     mode = { 'n', 'x' } },
+        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
@@ -383,7 +383,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -491,7 +491,7 @@ require('lazy').setup({
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim',       opts = {} },
+      { 'j-hui/fidget.nvim', opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
@@ -676,33 +676,6 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 
-      local powershell_es = {}
-
-      if vim.loop.os_uname().sysname == 'Windows_NT' then
-        powershell_es = {
-          bundle_path = vim.fn.stdpath 'data' .. '/mason/packages/powershell-editor-services',
-          cmd = {
-            'pwsh',
-            '-NoLogo',
-            '-NoProfile',
-            '-Command',
-            vim.fn.stdpath 'data'
-            .. '/mason/packages/powershell-editor-services/PowerShellEditorServices/Start-EditorServices.ps1'
-            .. " -HostName 'nvim' -HostProfileId 0 -HostVersion '1.0.0' -LogPath \""
-            .. vim.fn.stdpath 'cache'
-            .. '/powershell_es.log'
-            .. '" -SessionDetailsPath "'
-            .. vim.fn.stdpath 'cache'
-            .. '/powershell_es.session.json'
-            .. '" -BundledModulesPath "'
-            .. vim.fn.stdpath 'data'
-            .. '/mason/packages/powershell-editor-services'
-            .. '" -EnableConsoleRepl -LanguageServiceOnly -Stdio',
-          },
-          filetypes = { 'ps1', 'psm1', 'psd1' },
-        }
-      end
-
       local servers = {
         -- clangd = {},
         -- gopls = {},
@@ -712,7 +685,41 @@ require('lazy').setup({
             ['rust-analyzer'] = {
               checkOnSave = {
                 command = 'clippy',
-                extraArgs = { '--', '-D', 'warnings', '-W', 'clippy::single_match', '-W', 'clippy::single_match_else', '-W', 'clippy::needless_match', '-W', 'clippy::needless_late_init', '-W', 'clippy::redundant_pattern_matching', '-W', 'clippy::redundant_pattern', '-W', 'clippy::redundant_guards', '-W', 'clippy::collapsible_match', '-W', 'clippy::match_single_binding', '-W', 'clippy::match_same_arms', '-W', 'clippy::match_ref_pats', '-W', 'clippy::match_bool', '-D', 'clippy::needless_bool', '-W', 'clippy::unwrap_used', '-W', 'clippy::expect_used' },
+                extraArgs = {
+                  '--',
+                  '-D',
+                  'warnings',
+                  '-W',
+                  'clippy::single_match',
+                  '-W',
+                  'clippy::single_match_else',
+                  '-W',
+                  'clippy::needless_match',
+                  '-W',
+                  'clippy::needless_late_init',
+                  '-W',
+                  'clippy::redundant_pattern_matching',
+                  '-W',
+                  'clippy::redundant_pattern',
+                  '-W',
+                  'clippy::redundant_guards',
+                  '-W',
+                  'clippy::collapsible_match',
+                  '-W',
+                  'clippy::match_single_binding',
+                  '-W',
+                  'clippy::match_same_arms',
+                  '-W',
+                  'clippy::match_ref_pats',
+                  '-W',
+                  'clippy::match_bool',
+                  '-D',
+                  'clippy::needless_bool',
+                  '-W',
+                  'clippy::unwrap_used',
+                  '-W',
+                  'clippy::expect_used',
+                },
               },
               diagnostics = {
                 enable = false,
@@ -720,7 +727,6 @@ require('lazy').setup({
             },
           },
         },
-        powershell_es = powershell_es,
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -729,6 +735,9 @@ require('lazy').setup({
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
+        ts_ls = {},
+        html = {},
+        cssls = {},
 
         lua_ls = {
           -- cmd = { ... },
@@ -746,6 +755,39 @@ require('lazy').setup({
         },
       }
 
+      local ensure_list = {
+        'stylua', -- Used to format Lua code
+        'html',
+        'cssls',
+      }
+
+      if vim.loop.os_uname().sysname == 'Windows_NT' then
+        table.insert(ensure_list, 'powershell_es')
+
+        servers.powershell_es = {
+          bundle_path = vim.fn.stdpath 'data' .. '/mason/packages/powershell-editor-services',
+          cmd = {
+            'pwsh',
+            '-NoLogo',
+            '-NoProfile',
+            '-Command',
+            vim.fn.stdpath 'data'
+              .. '/mason/packages/powershell-editor-services/PowerShellEditorServices/Start-EditorServices.ps1'
+              .. " -HostName 'nvim' -HostProfileId 0 -HostVersion '1.0.0' -LogPath \""
+              .. vim.fn.stdpath 'cache'
+              .. '/powershell_es.log'
+              .. '" -SessionDetailsPath "'
+              .. vim.fn.stdpath 'cache'
+              .. '/powershell_es.session.json'
+              .. '" -BundledModulesPath "'
+              .. vim.fn.stdpath 'data'
+              .. '/mason/packages/powershell-editor-services'
+              .. '" -EnableConsoleRepl -LanguageServiceOnly -Stdio',
+          },
+          filetypes = { 'ps1', 'psm1', 'psd1' },
+        }
+      end
+
       -- Ensure the servers and tools above are installed
       --
       -- To check the current status of installed tools and/or manually install
@@ -760,10 +802,7 @@ require('lazy').setup({
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
-        'powershell_es',
-      })
+      vim.list_extend(ensure_installed, ensure_list)
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
