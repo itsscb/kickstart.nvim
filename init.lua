@@ -3,6 +3,7 @@
 vim.keymap.set({ 'i', 'v' }, 'jk', '<Esc>', { noremap = true, silent = true })
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+vim.keymap.set("x", "<leader>p", [["_dP]], { desc = 'Paste and cut' })
 
 --[[
 
@@ -296,7 +297,7 @@ require('lazy').setup({
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
 
-  { -- Useful plugin to show you pending keybinds.
+  {                     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -342,7 +343,7 @@ require('lazy').setup({
 
       -- Document existing key chains
       spec = {
-        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
+        { '<leader>c', group = '[C]ode',     mode = { 'n', 'x' } },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
@@ -382,7 +383,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -490,7 +491,7 @@ require('lazy').setup({
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
@@ -686,17 +687,17 @@ require('lazy').setup({
             '-NoProfile',
             '-Command',
             vim.fn.stdpath 'data'
-              .. '/mason/packages/powershell-editor-services/PowerShellEditorServices/Start-EditorServices.ps1'
-              .. " -HostName 'nvim' -HostProfileId 0 -HostVersion '1.0.0' -LogPath \""
-              .. vim.fn.stdpath 'cache'
-              .. '/powershell_es.log'
-              .. '" -SessionDetailsPath "'
-              .. vim.fn.stdpath 'cache'
-              .. '/powershell_es.session.json'
-              .. '" -BundledModulesPath "'
-              .. vim.fn.stdpath 'data'
-              .. '/mason/packages/powershell-editor-services'
-              .. '" -EnableConsoleRepl -LanguageServiceOnly -Stdio',
+            .. '/mason/packages/powershell-editor-services/PowerShellEditorServices/Start-EditorServices.ps1'
+            .. " -HostName 'nvim' -HostProfileId 0 -HostVersion '1.0.0' -LogPath \""
+            .. vim.fn.stdpath 'cache'
+            .. '/powershell_es.log'
+            .. '" -SessionDetailsPath "'
+            .. vim.fn.stdpath 'cache'
+            .. '/powershell_es.session.json'
+            .. '" -BundledModulesPath "'
+            .. vim.fn.stdpath 'data'
+            .. '/mason/packages/powershell-editor-services'
+            .. '" -EnableConsoleRepl -LanguageServiceOnly -Stdio',
           },
           filetypes = { 'ps1', 'psm1', 'psd1' },
         }
@@ -711,7 +712,7 @@ require('lazy').setup({
             ['rust-analyzer'] = {
               checkOnSave = {
                 command = 'clippy',
-                extraArgs = {'--', '-D', 'warnings', '-W', 'clippy::single_match', '-W', 'clippy::single_match_else', '-W', 'clippy::needless_match', '-W', 'clippy::needless_late_init', '-W', 'clippy::redundant_pattern_matching', '-W', 'clippy::redundant_pattern', '-W', 'clippy::redundant_guards', '-W', 'clippy::collapsible_match', '-W', 'clippy::match_single_binding', '-W', 'clippy::match_same_arms', '-W', 'clippy::match_ref_pats', '-W', 'clippy::match_bool', '-D', 'clippy::needless_bool', '-W', 'clippy::unwrap_used', '-W', 'clippy::expect_used' },
+                extraArgs = { '--', '-D', 'warnings', '-W', 'clippy::single_match', '-W', 'clippy::single_match_else', '-W', 'clippy::needless_match', '-W', 'clippy::needless_late_init', '-W', 'clippy::redundant_pattern_matching', '-W', 'clippy::redundant_pattern', '-W', 'clippy::redundant_guards', '-W', 'clippy::collapsible_match', '-W', 'clippy::match_single_binding', '-W', 'clippy::match_same_arms', '-W', 'clippy::match_ref_pats', '-W', 'clippy::match_bool', '-D', 'clippy::needless_bool', '-W', 'clippy::unwrap_used', '-W', 'clippy::expect_used' },
               },
               diagnostics = {
                 enable = false,
