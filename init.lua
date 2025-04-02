@@ -674,6 +674,30 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      
+      local powershell_es = {}
+
+      if  vim.loop.os_uname().sysname == "Windows_NT" then 
+        powershell_es = {
+          bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
+          cmd = { 
+            "pwsh", 
+            "-NoLogo", 
+            "-NoProfile", 
+            "-Command", 
+            vim.fn.stdpath("data") .. '/mason/packages/powershell-editor-services/PowerShellEditorServices/Start-EditorServices.ps1' .. 
+            " -HostName 'nvim' -HostProfileId 0 -HostVersion '1.0.0' -LogPath \"" .. 
+            vim.fn.stdpath("cache") .. "/powershell_es.log" .. 
+            "\" -SessionDetailsPath \"" .. 
+            vim.fn.stdpath("cache") .. "/powershell_es.session.json" .. 
+            "\" -BundledModulesPath \"" .. 
+            vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services" .. 
+            "\" -EnableConsoleRepl -LanguageServiceOnly -Stdio"
+          },
+          filetypes = { "ps1", "psm1", "psd1" },
+        }
+      end
+      
       local servers = {
         -- clangd = {},
         -- gopls = {},
@@ -687,6 +711,7 @@ require('lazy').setup({
             },
           },
         },
+        powershell_es = powershell_es,
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -728,6 +753,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'powershell_es',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
