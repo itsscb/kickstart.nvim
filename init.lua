@@ -108,7 +108,7 @@ vim.g.have_nerd_font = false
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -244,16 +244,16 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
-  {
-
-    'github/copilot.vim',
-    config = function()
-      vim.g.copilot_enabled = true
-      vim.g.copilot_no_tab_map = false
-      vim.g.copilot_tab_fallback = ''
-      vim.g.copilot_no_status_bar = true
-    end,
-  },
+  -- {
+  --
+  --   'github/copilot.vim',
+  --   config = function()
+  --     vim.g.copilot_enabled = false
+  --     vim.g.copilot_no_tab_map = false
+  --     vim.g.copilot_tab_fallback = ''
+  --     vim.g.copilot_no_status_bar = true
+  --   end,
+  -- },
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
@@ -580,6 +580,17 @@ require('lazy').setup({
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
+
+          map('<leader>cp', function()
+            local is_enabled = vim.g.copilot_enabled == 1
+            if is_enabled then
+              vim.cmd 'Copilot disable'
+              vim.notify('Copilot disabled', vim.log.levels.INFO)
+            else
+              vim.cmd 'Copilot enable'
+              vim.notify('Copilot enabled', vim.log.levels.INFO)
+            end
+          end, 'GitHub Copilot: Toggle')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
@@ -1008,7 +1019,20 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'ayu-dark'
+      vim.cmd.colorscheme 'ayu-dark' -- Function to apply custom highlights
+      local function set_custom_highlights()
+        vim.api.nvim_set_hl(0, 'LineNr', { fg = '#5c6773', bg = 'NONE' }) -- Regular line numbers
+        vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#ffcc66', bold = true }) -- Current line number
+      end
+
+      -- Apply highlights once
+      set_custom_highlights()
+
+      -- Ensure they reapply on any colorscheme change
+      vim.api.nvim_create_autocmd('ColorScheme', {
+        pattern = '*',
+        callback = set_custom_highlights,
+      })
     end,
   },
 
@@ -1109,18 +1133,18 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
