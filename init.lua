@@ -9,6 +9,7 @@ vim.keymap.set('n', '<C-A-h>', ':vertical resize +10<CR>')
 vim.keymap.set('n', '<C-A-l>', ':vertical resize -10<CR>')
 vim.keymap.set('n', '<C-A-k>', ':horizontal resize +10<CR>')
 vim.keymap.set('n', '<C-A-j>', ':horizontal resize -10<CR>')
+
 --[[
 
 =====================================================================
