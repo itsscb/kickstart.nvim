@@ -5,7 +5,10 @@ vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 vim.keymap.set('x', '<leader>p', [["_dP]], { desc = 'Paste and cut' })
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>')
-
+vim.keymap.set('n', '<C-A-h>', ':vertical resize +10<CR>')
+vim.keymap.set('n', '<C-A-l>', ':vertical resize -10<CR>')
+vim.keymap.set('n', '<C-A-k>', ':horizontal resize +10<CR>')
+vim.keymap.set('n', '<C-A-j>', ':horizontal resize -10<CR>')
 --[[
 
 =====================================================================
