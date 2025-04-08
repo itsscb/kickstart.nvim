@@ -4,6 +4,7 @@ vim.keymap.set({ 'i', 'v' }, 'jk', '<Esc>', { noremap = true, silent = true })
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 vim.keymap.set('x', '<leader>p', [["_dP]], { desc = 'Paste and cut' })
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>')
 
 --[[
 
@@ -244,6 +245,9 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
+  {
+    'tjdevries/present.nvim',
+  },
   -- {
   --
   --   'github/copilot.vim',
