@@ -588,16 +588,17 @@ require('lazy').setup({
           -- or a suggestion from your LSP for this to activate.
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
 
-          map('<leader>cp', function()
-            local is_enabled = vim.g.copilot_enabled == 1
-            if is_enabled then
-              vim.cmd 'Copilot disable'
-              vim.notify('Copilot disabled', vim.log.levels.INFO)
-            else
-              vim.cmd 'Copilot enable'
-              vim.notify('Copilot enabled', vim.log.levels.INFO)
-            end
-          end, 'GitHub Copilot: Toggle')
+          -- GitHub Copilot keymap
+          -- map('<leader>cp', function()
+          --   local is_enabled = vim.g.copilot_enabled == 1
+          --   if is_enabled then
+          --     vim.cmd 'Copilot disable'
+          --     vim.notify('Copilot disabled', vim.log.levels.INFO)
+          --   else
+          --     vim.cmd 'Copilot enable'
+          --     vim.notify('Copilot enabled', vim.log.levels.INFO)
+          --   end
+          -- end, 'GitHub Copilot: Toggle')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
