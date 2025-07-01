@@ -1016,41 +1016,47 @@ require('lazy').setup({
       }
     end,
   },
-
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'Shatur/neovim-ayu',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
+  {
+    'rose-pine/neovim',
+    name = 'rose-pine',
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('ayu').setup {
-        mirage = false,
-        terminal = true,
-        overrides = {},
-      }
-
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'ayu-dark' -- Function to apply custom highlights
-      local function set_custom_highlights()
-        vim.api.nvim_set_hl(0, 'LineNr', { fg = '#5c6773', bg = 'NONE' }) -- Regular line numbers
-        vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#ffcc66', bold = true }) -- Current line number
-      end
-
-      -- Apply highlights once
-      set_custom_highlights()
-
-      -- Ensure they reapply on any colorscheme change
-      vim.api.nvim_create_autocmd('ColorScheme', {
-        pattern = '*',
-        callback = set_custom_highlights,
-      })
+      vim.cmd 'colorscheme rose-pine'
     end,
   },
+  -- { -- You can easily change to a different colorscheme.
+  --   -- Change the name of the colorscheme plugin below, and then
+  --   -- change the command in the config to whatever the name of that colorscheme is.
+  --   --
+  --   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+  --   'Shatur/neovim-ayu',
+  --   priority = 1000, -- Make sure to load this before all the other start plugins.
+  --   config = function()
+  --     ---@diagnostic disable-next-line: missing-fields
+  --     require('ayu').setup {
+  --       mirage = false,
+  --       terminal = true,
+  --       overrides = {},
+  --     }
+
+  --     -- Load the colorscheme here.
+  --     -- Like many other themes, this one has different styles, and you could load
+  --     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+  --     vim.cmd.colorscheme 'ayu-dark' -- Function to apply custom highlights
+  --     local function set_custom_highlights()
+  --       vim.api.nvim_set_hl(0, 'LineNr', { fg = '#5c6773', bg = 'NONE' }) -- Regular line numbers
+  --       vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#ffcc66', bold = true }) -- Current line number
+  --     end
+
+  --     -- Apply highlights once
+  --     set_custom_highlights()
+
+  --     -- Ensure they reapply on any colorscheme change
+  --     vim.api.nvim_create_autocmd('ColorScheme', {
+  --       pattern = '*',
+  --       callback = set_custom_highlights,
+  --     })
+  --   end,
+  -- },
 
   -- { -- You can easily change to a different colorscheme.
   -- Change the name of the colorscheme plugin below, and then
