@@ -254,7 +254,7 @@ require('lazy').setup({
     'tjdevries/present.nvim',
   },
   {
-    'ThePrimeagen/harpoon',
+    'https://git.itsscb.de/itsscb/harpoon',
     branch = 'harpoon2',
     dependencies = { 'nvim-lua/plenary.nvim' },
   },
