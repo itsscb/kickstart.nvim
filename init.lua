@@ -253,6 +253,14 @@ require('lazy').setup({
   {
     'tjdevries/present.nvim',
   },
+  {
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+  },
+  {
+    'SeniorMars/typst.nvim',
+  },
   -- {
   --
   --   'github/copilot.vim',
@@ -1193,6 +1201,43 @@ require('lazy').setup({
     },
   },
 })
+
+local harpoon = require 'harpoon'
+
+-- REQUIRED
+harpoon:setup()
+-- REQUIRED
+
+vim.keymap.set('n', '<leader>a', function()
+  harpoon:list():add()
+end)
+vim.keymap.set('n', '<C-e>', function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end)
+
+vim.keymap.set('n', '<C-A-e>', function()
+  harpoon:list():clear()
+end)
+
+vim.keymap.set('n', '<C-A-p>', function()
+  harpoon:list():prev()
+end)
+vim.keymap.set('n', '<C-A-n>', function()
+  harpoon:list():next()
+end)
+
+-- vim.keymap.set('n', '<C-h>', function()
+--   harpoon:list():select(1)
+-- end)
+-- vim.keymap.set('n', '<C-t>', function()
+--   harpoon:list():select(2)
+-- end)
+-- vim.keymap.set('n', '<C-n>', function()
+--   harpoon:list():select(3)
+-- end)
+-- vim.keymap.set('n', '<C-s>', function()
+--   harpoon:list():select(4)
+-- end)
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
